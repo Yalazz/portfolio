@@ -1,7 +1,6 @@
 import React from "react";
 import "./ProjectGrid.css";
-import { SiVulkan, SiUnity, SiOpenai, SiNvidia } from "react-icons/si";
-import { SiWebgl } from "react-icons/si";
+import { SiVulkan, SiUnity, SiNvidia } from "react-icons/si";
 import { GiAbstract050 } from "react-icons/gi";
 
 export default function ProjectGrid() {
