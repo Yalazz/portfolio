@@ -1,8 +1,11 @@
 // 📁 src/components/RetroCRT/RetroCRTScene.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+
 import NESController from "../NESController/NESController";
 import ModelViewer from "./ModelViewer";
+// import React, { useState, useEffect, useCallback } from "react";
+
 
 export default function RetroCRTScene() {
   const models = [
@@ -14,37 +17,39 @@ export default function RetroCRTScene() {
   const [cursorIndex, setCursorIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleInput = (input) => {
-    if (input === "Left" || input === "Up") {
-      setCursorIndex((prev) => (prev - 1 + models.length) % models.length);
-    } else if (input === "Right" || input === "Down") {
-      setCursorIndex((prev) => (prev + 1) % models.length);
-    } else if (input === "Select") {
-      setSelectedIndex(cursorIndex);
-    } else if (input === "A" || input === "B") {
-      setSelectedIndex(null);
-    }
+const handleInput = useCallback((input) => {
+  if (input === "Left" || input === "Up") {
+    setCursorIndex((prev) => (prev - 1 + models.length) % models.length);
+  } else if (input === "Right" || input === "Down") {
+    setCursorIndex((prev) => (prev + 1) % models.length);
+  } else if (input === "Select") {
+    setSelectedIndex(cursorIndex);
+  } else if (input === "A" || input === "B") {
+    setSelectedIndex(null);
+  }
+}, [cursorIndex, models.length]);
+
+
+useEffect(() => {
+  const keyMap = {
+    ArrowUp: "Up",
+    ArrowDown: "Down",
+    ArrowLeft: "Left",
+    ArrowRight: "Right",
+    Enter: "Select",
+    a: "A",
+    b: "B",
   };
 
-  useEffect(() => {
-    const keyMap = {
-      ArrowUp: "Up",
-      ArrowDown: "Down",
-      ArrowLeft: "Left",
-      ArrowRight: "Right",
-      Enter: "Select",
-      a: "A",
-      b: "B",
-    };
+  const onKeyDown = (e) => {
+    const input = keyMap[e.key.toLowerCase()] || keyMap[e.key];
+    if (input) handleInput(input);
+  };
 
-    const onKeyDown = (e) => {
-      const input = keyMap[e.key.toLowerCase()] || keyMap[e.key];
-      if (input) handleInput(input);
-    };
+  window.addEventListener("keydown", onKeyDown);
+  return () => window.removeEventListener("keydown", onKeyDown);
+}, [handleInput]);
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [cursorIndex]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", fontFamily: "IBM Plex Mono, monospace", marginTop: "2rem" }}>
