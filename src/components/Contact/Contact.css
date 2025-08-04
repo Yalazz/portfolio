@@ -1,0 +1,89 @@
+/* Kapsayıcı: kutu yok, sadece hizalama */
+.contact-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem 1rem;
+  width: 100%;
+  background: transparent; /* kutu istemiyoruz */
+}
+
+/* Liste düzeni */
+.contact-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center; /* ortalı */
+}
+
+/* Tek tek satırlar (kutu yok) */
+.contact-item {
+  margin: 0;
+  padding: 0;
+}
+
+/* Bağlantı stili: sade, kutusuz */
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;                  /* alt çizgi kapalı */
+  color: var(--color-text);
+  transition: color 0.25s ease, transform 0.2s ease, text-shadow 0.25s ease;
+  text-shadow: 0 0 6px rgba(0,0,0,0);     /* hover’da yumuşak parlama alacak */
+  outline: none;
+}
+
+/* İkon palete uygun (kırmızı) */
+.contact-icon {
+  font-size: 1.2rem;
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 4px var(--color-shadow));
+  transition: transform 0.2s ease, filter 0.25s ease, color 0.25s ease;
+}
+
+/* Metin (kutu yok, sadece hover efekti) */
+.contact-text {
+  font-weight: 500;
+  border-bottom: 1px dashed transparent;  /* hover’da çizgi gelecek */
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+/* Hover: metin beyaza yakın parlaklık + kırmızı vurgu, kutu yok */
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--color-highlight);          /* light: siyah, dark: beyaz */
+  transform: translateY(-1px);
+  text-shadow: 0 0 10px var(--color-shadow);
+}
+
+.contact-link:hover .contact-text,
+.contact-link:focus-visible .contact-text {
+  border-color: var(--color-accent);
+}
+
+.contact-link:hover .contact-icon,
+.contact-link:focus-visible .contact-icon {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 8px var(--color-shadow));
+}
+
+/* Erişilebilirlik: klavye odağında netlik */
+.contact-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Küçük ekranlar */
+@media (max-width: 480px) {
+  .contact-icon {
+    font-size: 1.05rem;
+  }
+  .contact-link {
+    font-size: 0.95rem;
+  }
+}

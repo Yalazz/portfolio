@@ -1,38 +1,348 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+
+/* === TEMALAR === */
+:root {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-red: #ff003c;
+  --color-accent: #ff003c;
+  --color-highlight: #ffffff;
+  --color-border: #ffffff;
+  --color-shadow: rgba(255, 0, 60, 0.4);
+  --color-card-bg: rgba(255, 255, 255, 0.05);
+  --transition: 0.4s ease;
+}
+
+:root[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-red: #ff003c;
+  --color-accent: #ff003c;
+  --color-highlight: #000000;
+  --color-border: #000000;
+  --color-shadow: rgba(255, 0, 60, 0.2);
+  --color-card-bg: rgba(0, 0, 0, 0.06);
+}
+
+/* === TEMEL YAPI === */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'IBM Plex Mono', monospace;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+/* === HERO === */
+.hero-section {
   text-align: center;
+  padding: 4rem 1rem 2rem;
+}
+.hero-title {
+  font-size: 3rem;
+  color: var(--color-text);
+  text-shadow: 2px 2px var(--color-red);
+  margin-bottom: 3rem;
+  margin-top: 2.5rem;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--color-red);
+  margin-top: 0.5rem;
 }
 
-.App-logo {
-  height: 40vmin;
+/* === BÖLÜM === */
+.section {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 2rem 0 1rem;
+  color: var(--color-text);
+}
+
+/* === GRID === */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+.grid-item {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  padding: 1rem;
+  border-radius: 8px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.grid-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px var(--color-shadow);
+}
+
+/* === NAVBAR === */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.navbar-right {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar-right a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+.navbar-right a:hover {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+/* === FOOTER === */
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  padding: 2rem 1rem;
+}
+
+/* === SCANLINE === */
+body::after {
+  content: '';
   pointer-events: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015),
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* === FLICKER === */
+.vhs-flicker {
+  animation: flicker 2s infinite steps(2, start);
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.92; }
+}
+
+/* === GLOW === */
+.glow {
+  text-shadow: 0 0 6px var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* === KUTU === */
+.box {
+  border: 1px solid var(--color-border);
+  background: var(--color-card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px var(--color-shadow);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .grid-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
   }
 }
+/* === Tema geçişi için kısa cross-fade === */
+html.theme-fade::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  pointer-events: none;
+  z-index: 9998;
+  animation: themeFade 280ms ease;
+  /* Yeni temanın bg rengi ile anlık flash yapıp kaybolur */
+}
+@keyframes themeFade {
+  0% { opacity: 0; }
+  50% { opacity: .22; }
+  100% { opacity: 0; }
+}
+/* Smooth anchor scroll */
+html { scroll-behavior: smooth; }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* === NAVBAR === */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-left .brand {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.nav-right {
+  display: flex;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-right a {
+  display: inline-flex;
+  align-items: center;
+  padding: .35rem .6rem;
+  border: 1px solid transparent;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: border-color .2s ease, background .2s ease, color .2s ease, transform .18s ease;
+}
+.nav-right a:hover,
+.nav-right a:focus-visible {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #000;
+  transform: translateY(-1px);
+  outline: none;
+  border-radius: 6px;
+}
+
+/* === GLITCH / NOISE TITLE === */
+.glitch {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--color-text);
+  text-shadow: 0 0 6px var(--color-shadow);
+}
+
+/* Kırmızı ve mavi kanal kaydırma */
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.glitch::before {
+  color: #ff003c; /* kırmızı kanal */
+  transform: translate(1px, 0);
+  mix-blend-mode: screen;
+  animation: glitchShift 2.2s infinite linear alternate-reverse;
+}
+.glitch::after {
+  color: #00d1ff; /* mavi/cyan kanal */
+  transform: translate(-1px, 0);
+  mix-blend-mode: screen;
+  animation: glitchShift 1.8s infinite linear alternate;
+}
+
+@keyframes glitchShift {
+  0%   { clip-path: inset(0 0 85% 0); }
+  20%  { clip-path: inset(10% 0 60% 0); }
+  40%  { clip-path: inset(40% 0 35% 0); }
+  60%  { clip-path: inset(65% 0 10% 0); }
+  80%  { clip-path: inset(80% 0 0 0); }
+  100% { clip-path: inset(0 0 85% 0); }
+}
+
+/* Hero’daki büyük sürüm */
+.big-glitch .glitch {
+  font-size: clamp(1.8rem, 3.5vw + 1rem, 3.2rem);
+  font-weight: 700;
+  display: inline-block;
+  color: var(--color-text);
+  text-shadow: 0 0 6px var(--color-shadow);
+  letter-spacing: 0.8px;
+}
+.hero-subtitle {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  opacity: 0.95;
+}
+
+.App {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh;
+  padding: 0;
+  background: var(--color-bg);
 }
 
-.App-link {
-  color: #61dafb;
+.main-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Tema geçişinde kısa cross-fade (daha önce eklediysen tekrar ekleme) */
+html.theme-fade::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  pointer-events: none;
+  z-index: 9998;
+  animation: themeFade 280ms ease;
+}
+@keyframes themeFade {
+  0% { opacity: 0; }
+  50% { opacity: .22; }
+  100% { opacity: 0; }
+}
+@media (max-width: 768px) {
+  .experience-layout {
+    flex-direction: column;
+    align-items: center;
   }
 }
