@@ -18,7 +18,7 @@ export default function RetroMonitor({ poweredOn = false, onTogglePower }) {
   const [lines, setLines] = useState([]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
-  const [histIndex, setHistIndex] = useState(-1);
+  const [, setHistIndex] = useState(-1);
   const screenRef = useRef(null);
   const inputRef = useRef(null);
 
