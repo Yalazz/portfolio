@@ -13,7 +13,7 @@ export default function Contact({
 }) {
   return (
     <div className="contact-container" role="region" aria-label="Contact">
-      <ul className="contact-links" role="list">
+      + <ul className="contact-links">
         <li className="contact-item">
           <a
             className="contact-link"

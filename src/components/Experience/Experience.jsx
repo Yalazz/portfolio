@@ -39,7 +39,7 @@ export default function Experience() {
     <section className="experience-container" aria-labelledby="exp-title">
       <h3 id="exp-title" className="exp-section-title">Experience</h3>
       <div className="experience-with-crt">
-        <ul className="experience-list" role="list">
+        <ul className="experience-list">
           {experienceData.map((item, index) => (
             <li key={index} className="experience-item">
               <FaBriefcase className="exp-icon" aria-hidden="true" />
